@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立雲林科技大學 - 通識教育中心後台管理</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Noto Sans TC', sans-serif; }</style>
+</head>
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col">
+
+    <!-- 頂部導覽列 -->
+    <header class="bg-slate-900 text-white shadow-md">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-gauge-high text-emerald-400 text-2xl"></i>
+                <h1 class="text-xl font-bold tracking-wider">通識教育中心 • 內容管理後台</h1>
+            </div>
+            <div id="user-info" class="hidden flex items-center space-x-4">
+                <span id="username-display" class="text-sm text-gray-300 font-medium"></span>
+                <button onclick="logout()" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1.5 rounded text-sm transition">登出</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- 登入畫面 -->
+    <div id="login-container" class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full border border-gray-200">
+            <div class="text-center mb-6">
+                <div class="bg-emerald-100 text-emerald-600 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-inner">
+                    <i class="fa-solid fa-lock"></i>
+                </div>
+                <h2 class="text-2xl font-bold text-gray-800">管理者權限驗證</h2>
+                <p class="text-sm text-gray-500 mt-1">請輸入您的 GitHub 帳號白名單與 Personal Access Token</p>
+            </div>
+            <form onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">GitHub 帳號 (Username)</label>
+                    <input type="text" id="gh-user" required placeholder="例如: your-github-id" class="w-full px-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">GitHub Personal Access Token</label>
+                    <input type="password" id="gh-token" required placeholder="github_pat_... 或 ghp_..." class="w-full px-4 py-2.5 border rounded-xl focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    <p class="text-xs text-gray-400 mt-1">支援 github_pat_ 或 ghp_ 開頭之 Token（需具備 Contents 讀寫權限）</p>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3 rounded-xl shadow-lg transition duration-200">安全登入後台</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 編輯主畫面 (預設隱藏) -->
+    <main id="dashboard-container" class="hidden flex-grow container mx-auto px-6 py-8 space-y-8">
+        <div class="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-200 gap-4">
+            <div>
+                <h3 class="text-lg font-bold text-gray-800">公告內容即時管理</h3>
+                <p class="text-sm text-gray-500">修改下方表格內容後，點擊右側按鈕即可一鍵同步更新至 GitHub 網站。</p>
+            </div>
+            <button onclick="saveToGitHub()" class="w-full md:w-auto bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-md font-bold flex items-center justify-center space-x-2 transition">
+                <i class="fa-solid fa-cloud-arrow-up text-lg"></i>
+                <span>儲存並發布至 GitHub</span>
+            </button>
+        </div>
+
+        <!-- 最新消息編輯區 -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="text-md font-bold text-gray-800"><i class="fa-solid fa-bullhorn text-emerald-600 mr-2"></i>最新消息 (News)</h4>
+                <button onclick="addItem('news')" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-xl font-medium transition flex items-center"><i class="fa-solid fa-plus mr-1.5"></i>新增消息</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="news-table">
+                    <thead>
+                        <tr class="bg-gray-50 border-b text-sm text-gray-600">
+                            <th class="p-3">日期</th>
+                            <th class="p-3">標籤</th>
+                            <th class="p-3">標題</th>
+                            <th class="p-3">連結網址</th>
+                            <th class="p-3 text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- 課程公告編輯區 -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+            <div class="flex justify-between items-center mb-4">
+                <h4 class="text-md font-bold text-gray-800"><i class="fa-solid fa-book-open text-emerald-600 mr-2"></i>課程公告 (Class Announcements)</h4>
+                <button onclick="addItem('classes')" class="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-xl font-medium transition flex items-center"><i class="fa-solid fa-plus mr-1.5"></i>新增公告</button>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse" id="classes-table">
+                    <thead>
+                        <tr class="bg-gray-50 border-b text-sm text-gray-600">
+                            <th class="p-3">日期</th>
+                            <th class="p-3">標籤</th>
+                            <th class="p-3">標題</th>
+                            <th class="p-3">連結網址</th>
+                            <th class="p-3 text-center">操作</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y text-sm"></tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <!-- JavaScript 邏輯：相容 github_pat_ 與 ghp_ Token -->
+    <script>
+        // 【請修改此處】填入你的 GitHub 專案資訊與管理者白名單
+        const REPO_OWNER = "yuntech-uhx";   // 例如: yuntech-user
+        const REPO_NAME = "yuntech-uhx-web";       // 例如: yuntech-general-edu
+        const FILE_PATH = "data.json";
+        const ALLOWED_ADMINS = ["yuntech-uhx", "jason-Jiong-Long"];
+
+        let siteData = { news: [], classes: [] };
+        let authToken = "";
+        let currentUsername = "";
+
+        async function handleLogin(e) {
+            e.preventDefault();
+            const username = document.getElementById('gh-user').value.trim();
+            const token = document.getElementById('gh-token').value.trim();
+
+            if (!ALLOWED_ADMINS.includes(username)) {
+                alert("錯誤：此 GitHub 帳號不在管理者白名單內！");
+                return;
+            }
+
+            try {
+                // 自動適應新版 github_pat_ 與舊版 ghp_ 的驗證標頭
+                const authHeader = token.startsWith('github_pat_') ? `Bearer ${token}` : `token ${token}`;
+
+                const res = await fetch(`https://api.github.com/user`, {
+                    headers: { Authorization: authHeader }
+                });
+
+                if (!res.ok) throw new Error("Token 驗證失敗");
+
+                authToken = token;
+                currentUsername = username;
+
+                document.getElementById('login-container').classList.add('hidden');
+                document.getElementById('dashboard-container').classList.remove('hidden');
+                document.getElementById('user-info').classList.remove('hidden');
+                document.getElementById('username-display').innerText = `管理者: ${username}`;
+
+                loadDataFromGitHub();
+            } catch (err) {
+                alert("登入失敗！請確認 GitHub 帳號、白名單設定與 Token 權限是否正確。");
+            }
+        }
+
+        function logout() {
+            location.reload();
+        }
+
+        async function loadDataFromGitHub() {
+            try {
+                const authHeader = authToken.startsWith('github_pat_') ? `Bearer ${authToken}` : `token ${authToken}`;
+                const res = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+                    headers: { Authorization: authHeader }
+                });
+                const result = await res.json();
+
+                // 修正 Base64 解碼的中文字亂碼問題
+                const decodedString = decodeURIComponent(escape(atob(result.content.replace(/\s/g, ''))));
+                siteData = JSON.parse(decodedString);
+                renderTables();
+            } catch (err) {
+                alert("讀取遠端 data.json 失敗，請確認 Repository 名稱與路徑是否正確。");
+            }
+        }
+
+        function renderTables() {
+            renderTable('news', siteData.news);
+            renderTable('classes', siteData.classes);
+        }
+
+        function renderTable(type, items) {
+            const tbody = document.querySelector(`#${type}-table tbody`);
+            tbody.innerHTML = "";
+            items.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="p-3"><input type="date" value="${item.date}" onchange="updateItem('${type}', ${index}, 'date', this.value)" class="border rounded-lg px-3 py-1.5 text-sm w-36 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></td>
+                        <td class="p-3"><input type="text" value="${item.badge}" onchange="updateItem('${type}', ${index}, 'badge', this.value)" class="border rounded-lg px-3 py-1.5 text-sm w-28 focus:ring-2 focus:ring-emerald-500 focus:outline-none"></td>
+                        <td class="p-3"><input type="text" value="${item.title}" onchange="updateItem('${type}', ${index}, 'title', this.value)" class="border rounded-lg px-3 py-1.5 text-sm w-full focus:ring-2 focus:ring-emerald-500 focus:outline-none"></td>
+                        <td class="p-3"><input type="text" value="${item.link}" onchange="updateItem('${type}', ${index}, 'link', this.value)" class="border rounded-lg px-3 py-1.5 text-sm w-full focus:ring-2 focus:ring-emerald-500 focus:outline-none"></td>
+                        <td class="p-3 text-center">
+                            <button onclick="deleteItem('${type}', ${index})" class="text-red-500 hover:text-red-700 p-2 transition"><i class="fa-solid fa-trash-can"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function updateItem(type, index, field, value) {
+            siteData[type][index][field] = value;
+        }
+
+        function addItem(type) {
+            const newItem = {
+                id: Date.now(),
+                title: "請輸入新公告標題",
+                date: new Date().toISOString().split('T')[0],
+                badge: "公告",
+                link: "#"
+            };
+            siteData[type].unshift(newItem);
+            renderTables();
+        }
+
+        function deleteItem(type, index) {
+            if (confirm("確定要刪除這筆公告嗎？")) {
+                siteData[type].splice(index, 1);
+                renderTables();
+            }
+        }
+
+        async function saveToGitHub() {
+            if (!confirm("確定要將變更發布至 GitHub 網站嗎？")) return;
+
+            try {
+                const authHeader = authToken.startsWith('github_pat_') ? `Bearer ${authToken}` : `token ${authToken}`;
+
+                // 1. 取得檔案最新的 SHA
+                const getRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+                    headers: { Authorization: authHeader }
+                });
+                const fileInfo = await getRes.json();
+                const fileSha = fileInfo.sha;
+
+                // 2. 將更新後的資料轉成正確支援中文的 Base64
+                const jsonString = JSON.stringify(siteData, null, 2);
+                const updatedContent = btoa(unescape(encodeURIComponent(jsonString)));
+
+                // 3. 發送 PUT 請求寫回 GitHub
+                const putRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/contents/${FILE_PATH}`, {
+                    method: 'PUT',
+                    headers: {
+                        Authorization: authHeader,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        message: `Update website content via admin panel by ${currentUsername}`,
+                        content: updatedContent,
+                        sha: fileSha
+                    })
+                });
+
+                if (putRes.ok) {
+                    alert("🎉 成功發布！網站已更新，將在數十秒內完成 GitHub Pages 自動重新部署。");
+                } else {
+                    const errData = await putRes.json();
+                    throw new Error(errData.message || "發布失敗");
+                }
+            } catch (err) {
+                alert("發布失敗：" + err.message + "\n請檢查 Token 權限是否包含 Contents (Read and write)。");
+            }
+        }
+    </script>
+</body>
+</html>

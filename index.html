@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國立雲林科技大學 - 通識教育中心</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome 圖示 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Noto Sans TC', sans-serif; }
+        /* 滾動條樣式優化 */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- ✅ 頂部導覽列：回歸前一版半透明黑底質感 -->
+    <header class="bg-black/95 text-white sticky top-0 z-50 shadow-lg backdrop-blur-sm">
+        <div class="container mx-auto px-6 flex justify-between items-center h-24">
+            <!-- LOGO 區塊 -->
+            <a href="#" class="flex items-center space-x-3 group">
+                <div class="bg-emerald-500 p-2.5 rounded-xl transition group-hover:bg-emerald-400">
+                    <i class="fa-solid fa-graduation-cap text-3xl text-black"></i>
+                </div>
+                <div>
+                    <h1 class="text-sm tracking-widest text-gray-400 font-light">通識教育中心</h1>
+                    <span class="text-2xl font-bold tracking-wider text-white">YunTech</span>
+                </div>
+            </a>
+            <!-- 導覽選單 -->
+            <nav class="hidden lg:flex space-x-8 text-sm font-medium">
+                <a href="#" class="hover:text-emerald-400 transition flex items-center">最新公告 <i class="fa-solid fa-caret-down text-xs ml-1.5 opacity-60"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition flex items-center">中心簡介 <i class="fa-solid fa-caret-down text-xs ml-1.5 opacity-60"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition flex items-center">中心成員 <i class="fa-solid fa-caret-down text-xs ml-1.5 opacity-60"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition flex items-center">課程 <i class="fa-solid fa-caret-down text-xs ml-1.5 opacity-60"></i></a>
+                <a href="#" class="hover:text-emerald-400 transition">自主學習</a>
+                <a href="#" class="hover:text-emerald-400 transition">各項法規</a>
+                <a href="#" class="hover:text-emerald-400 transition flex items-center">表單下載 <i class="fa-solid fa-caret-down text-xs ml-1.5 opacity-60"></i></a>
+            </nav>
+            <!-- 右側功能按鈕 -->
+            <div class="flex items-center space-x-4">
+                <button class="text-xl text-gray-400 hover:text-white transition"><i class="fa-solid fa-search"></i></button>
+                <button class="lg:hidden text-2xl text-gray-400 hover:text-white transition"><i class="fa-solid fa-bars"></i></button>
+                <a href="admin.html" target="_blank" class="hidden md:block bg-emerald-600 hover:bg-emerald-500 text-white text-xs px-4 py-2 rounded-full font-bold transition">管理者登入</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ✅ 橫幅 Hero Section：回歸前一版全螢幕氣勢 -->
+    <section class="relative bg-black text-white h-[85vh] flex items-center overflow-hidden">
+        <!-- 背景圖片 (可更換連結) -->
+        <div class="absolute inset-0 z-0 scale-105" style="background-image: url('https://images.unsplash.com/photo-1541339907198-e08756defefe?auto=format&fit=crop&w=1920&q=80'); background-size: cover; background-position: center; filter: blur(2px) brightness(0.5);"></div>
+
+        <div class="relative container mx-auto px-6 z-10 text-center">
+            <div class="inline-block bg-emerald-500/20 text-emerald-300 text-sm tracking-widest mb-6 font-semibold px-6 py-2 rounded-full border border-emerald-500/30">
+                ✦ 走入內在森林 ✦ 播下感恩種子 ✦ 擁抱世界脈動 ✦ 航向幸福未來 ✦
+            </div>
+            <h2 class="text-4xl md:text-6xl font-bold tracking-wider leading-tight drop-shadow-lg max-w-4xl mx-auto">2026 第59屆 大專青年生命成長營</h2>
+            <div class="mt-8 flex items-center justify-center space-x-6 text-xl text-gray-200 font-light">
+                <span><i class="fa-solid fa-calendar-day mr-2 text-emerald-400"></i> 8/8 (SAT) - 8/10 (MON)</span>
+                <span class="text-gray-600">|</span>
+                <span><i class="fa-solid fa-location-dot mr-2 text-emerald-400"></i> 國立雲林科技大學</span>
+            </div>
+            <div class="mt-12 flex justify-center space-x-4">
+                <a href="#" class="bg-emerald-600 hover:bg-emerald-500 text-white px-8 py-3.5 rounded-xl font-bold text-lg shadow-lg transition transform hover:-translate-y-1">馬上報名</a>
+                <a href="#" class="bg-white/10 hover:bg-white/20 text-white px-8 py-3.5 rounded-xl font-bold text-lg transition backdrop-blur-sm border border-white/20">了解更多</a>
+            </div>
+        </div>
+
+        <!-- 下方波浪裝飾 (可自由開關) -->
+        <div class="absolute bottom-0 left-0 right-0 z-20">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#f9fafb" fill-opacity="1" d="M0,160L48,176C96,192,192,224,288,224C384,224,480,192,576,165.3C672,139,768,117,864,122.7C960,128,1056,160,1152,176C1248,192,1344,192,1392,192L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>
+        </div>
+    </section>
+
+    <!-- ✅ 最新消息區塊：回歸前一版精美卡片 & 動態渲染 -->
+    <section class="container mx-auto px-6 py-16 -mt-16 relative z-30">
+        <div class="flex justify-between items-center mb-10 border-b border-gray-200 pb-5">
+            <h3 class="text-3xl font-bold tracking-tight text-gray-900">最新消息 <span class="text-emerald-600">News</span></h3>
+            <a href="#" class="group text-sm text-gray-500 hover:text-emerald-600 transition flex items-center font-medium">查看全部 <i class="fa-solid fa-angle-right ml-1.5 transition-transform group-hover:translate-x-1"></i></a>
+        </div>
+
+        <!-- ✅ 動態渲染的最新消息容器 (與上一版邏輯完全相同) -->
+        <div id="news-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- 載入中的骨架屏 (Skeleton Screen) -->
+            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border">
+                <div class="h-5 bg-gray-200 rounded-full w-24 mb-4"></div>
+                <div class="h-7 bg-gray-300 rounded-full mb-3"></div>
+                <div class="h-4 bg-gray-200 rounded-full w-2/3"></div>
+            </div>
+            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border hidden md:block">
+                <div class="h-5 bg-gray-200 rounded-full w-24 mb-4"></div>
+                <div class="h-7 bg-gray-300 rounded-full mb-3"></div>
+                <div class="h-4 bg-gray-200 rounded-full w-2/3"></div>
+            </div>
+            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border hidden md:block">
+                <div class="h-5 bg-gray-200 rounded-full w-24 mb-4"></div>
+                <div class="h-7 bg-gray-300 rounded-full mb-3"></div>
+                <div class="h-4 bg-gray-200 rounded-full w-2/3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ✅ 課程公告區塊：回歸前一版卡片 & 動態渲染 -->
+    <section class="bg-gray-100/50 py-20 border-t border-gray-100">
+        <div class="container mx-auto px-6">
+            <div class="flex justify-between items-center mb-10 border-b border-gray-200 pb-5">
+                <h3 class="text-3xl font-bold tracking-tight text-gray-900">課程公告 <span class="text-amber-600">Class</span></h3>
+                <a href="#" class="group text-sm text-gray-500 hover:text-amber-600 transition flex items-center font-medium">查看全部 <i class="fa-solid fa-angle-right ml-1.5 transition-transform group-hover:translate-x-1"></i></a>
+            </div>
+
+            <!-- ✅ 動態渲染的課程公告容器 (與上一版邏輯完全相同) -->
+            <div id="class-container" class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 載入中... -->
+                <div class="text-gray-400 text-sm">載入中資料...</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 頁尾聯絡資訊 -->
+    <footer class="bg-gray-950 text-gray-300 py-16">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="md:col-span-1">
+                <div class="flex items-center space-x-3 mb-5">
+                    <div class="bg-emerald-600 p-2 rounded-lg">
+                        <i class="fa-solid fa-graduation-cap text-2xl text-white"></i>
+                    </div>
+                    <span class="text-xl font-bold text-white">YunTech 通識中心</span>
+                </div>
+                <p class="text-sm text-gray-400 leading-relaxed">
+                    本中心致力於博雅教育，引領學生探索生命意義、拓展國際視野，期許學生成為術德兼備、具有社會關懷之人才。
+                </p>
+            </div>
+            <div class="md:col-span-2 grid grid-cols-2 gap-8 text-sm">
+                <div>
+                    <h5 class="font-bold text-white mb-4">快速連結</h5>
+                    <ul class="space-y-2.5">
+                        <li><a href="#" class="hover:text-emerald-400 transition">最新消息</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">各項法規</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">表單下載</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">校園地圖</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-bold text-white mb-4">相關單位</h5>
+                    <ul class="space-y-2.5">
+                        <li><a href="https://www.yuntech.edu.tw" target="_blank" class="hover:text-emerald-400 transition">雲林科技大學</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">教務處</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">學生事務處</a></li>
+                        <li><a href="#" class="hover:text-emerald-400 transition">國際事務處</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="md:col-span-1 text-sm">
+                <h5 class="font-bold text-white mb-4">聯絡我們</h5>
+                <ul class="space-y-3">
+                    <li class="flex items-start"><i class="fa-solid fa-location-dot mt-1 mr-3 text-emerald-500"></i> 64002 雲林縣斗六市大學路3段123號</li>
+                    <li><i class="fa-solid fa-phone mr-3 text-emerald-500"></i> +886-5-534-2601 分機 3101</li>
+                    <li><i class="fa-solid fa-envelope mr-3 text-emerald-500"></i> uhx@yuntech.edu.tw</li>
+                </ul>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 mt-12 pt-8 border-t border-gray-800 text-center text-xs text-gray-600">
+            Copyright © 2020-2026 國立雲林科技大學 通識教育中心. 版權所有.
+        </div>
+    </footer>
+
+    <!-- ✅ JavaScript：自動讀取 data.json 並渲染畫面 (保留上一版精髓邏輯，優化卡片 HTML) -->
+    <script>
+        async function loadDynamicContent() {
+            try {
+                // 從同一個資料夾讀取 data.json
+                const response = await fetch('data.json');
+                if (!response.ok) throw new Error('無法讀取資料檔案 data.json，請確認檔案存在。');
+                const data = await response.json();
+
+                // 1. 渲染最新消息 (News) - 使用上一版更精美的卡片樣式
+                const newsContainer = document.getElementById('news-container');
+                if (newsContainer && data.news) {
+                    newsContainer.innerHTML = data.news.map(item => `
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-7 flex flex-col justify-between hover:shadow-xl hover:border-emerald-100 transition-all duration-300 group">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="bg-emerald-100 text-emerald-800 text-xs px-3 py-1 rounded-full font-bold tracking-wider">${item.badge}</span>
+                                    <span class="text-sm text-gray-400 font-mono"><i class="fa-regular fa-clock mr-1.5"></i>${item.date}</span>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-900 group-hover:text-emerald-600 transition duration-300 mb-3 leading-snug">${item.title}</h4>
+                            </div>
+                            <a href="${item.link}" class="text-sm text-emerald-600 font-semibold hover:text-emerald-700 inline-flex items-center mt-4 group-hover:underline">
+                                詳細內容 <i class="fa-solid fa-arrow-right ml-1.5 text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    `).join('');
+                }
+
+                // 2. 渲染課程公告 (Classes) - 使用琥珀色卡片樣式
+                const classContainer = document.getElementById('class-container');
+                if (classContainer && data.classes) {
+                    classContainer.innerHTML = data.classes.map(item => `
+                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-7 flex flex-col justify-between hover:shadow-xl hover:border-amber-100 transition-all duration-300 group">
+                            <div>
+                                <div class="flex justify-between items-center mb-4">
+                                    <span class="bg-amber-100 text-amber-800 text-xs px-3 py-1 rounded-full font-bold tracking-wider">${item.badge}</span>
+                                    <span class="text-sm text-gray-400 font-mono"><i class="fa-regular fa-clock mr-1.5"></i>${item.date}</span>
+                                </div>
+                                <h4 class="text-lg font-bold text-gray-900 group-hover:text-amber-600 transition duration-300 mb-3 leading-snug">${item.title}</h4>
+                            </div>
+                            <a href="${item.link}" class="text-sm text-amber-600 font-semibold hover:text-amber-700 inline-flex items-center mt-4 group-hover:underline">
+                                詳細內容 <i class="fa-solid fa-arrow-right ml-1.5 text-xs transition-transform group-hover:translate-x-1"></i>
+                            </a>
+                        </div>
+                    `).join('');
+                }
+            } catch (e) {
+                console.error("載入公告資料發生錯誤：", e);
+                const newsContainer = document.getElementById('news-container');
+                const classContainer = document.getElementById('class-container');
+                if (newsContainer) newsContainer.innerHTML = `<div class="md:col-span-3 text-red-500 text-sm p-4 bg-red-50 rounded-lg border border-red-100"><i class="fa-solid fa-exclamation-triangle mr-2"></i>無法載入最新消息資料，請檢查 data.json 是否正確。Error: ${e.message}</div>`;
+                if (classContainer) classContainer.innerHTML = `<div class="md:col-span-3 text-red-500 text-sm p-4 bg-red-50 rounded-lg border border-red-100"><i class="fa-solid fa-exclamation-triangle mr-2"></i>無法載入課程公告資料。</div>`;
+            }
+        }
+
+        // 網頁載入完成後執行
+        document.addEventListener('DOMContentLoaded', loadDynamicContent);
+    </script>
+</body>
+</html>
